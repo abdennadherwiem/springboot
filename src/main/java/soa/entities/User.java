@@ -14,6 +14,7 @@ public class User {
 
     private String username;
     private String password;
+    private boolean userType = false;
 
     public User() {
     }
@@ -44,6 +45,11 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    public boolean getUserType() {
+        return userType;
+    }
+
 
     public void setPassword(String password) {
         this.password = password;

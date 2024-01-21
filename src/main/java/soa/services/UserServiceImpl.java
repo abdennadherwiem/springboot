@@ -12,7 +12,9 @@ import soa.repository.UserRepository;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping( "/user")
@@ -43,12 +45,13 @@ public class UserServiceImpl implements UserService {
     @Override
     @ResponseBody
     @PostMapping(value = "/login")
-    public String loginUser(@RequestBody User user) {
+    public Map<String,Object> loginUser(@RequestBody User user) {
         User existingUser = userRepository.findByUsername(user.getUsername());
 
         if (existingUser == null || !new BCryptPasswordEncoder().matches(user.getPassword(), existingUser.getPassword())) {
             throw new RuntimeException("Invalid username or password");
         }
+        boolean userType = existingUser.getUserType();
 
         // Generate JWT token
         String token = Jwts.builder()
@@ -59,8 +62,12 @@ public class UserServiceImpl implements UserService {
                 .compact();
 
 
-        return token;
-    }
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("userType", userType);
+
+        // Return the map as the response
+        return response;    }
     @GetMapping(value= "/")
     @ResponseBody
     public List<User> getAllUsers() {
