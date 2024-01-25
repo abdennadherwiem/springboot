@@ -7,6 +7,9 @@ import soa.repository.ColorRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
 
 @Service
 public class ColorServiceImpl implements ColorService {
@@ -48,8 +51,12 @@ public class ColorServiceImpl implements ColorService {
         }
     }
 
-    @Override
     public void deleteColor(Long id) {
         colorRepository.deleteById(id);
     }
+
+
+
+
 }
+

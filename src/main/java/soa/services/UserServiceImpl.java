@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         Map<String, Object> response = new HashMap<>();
         response.put("token", token);
         response.put("userType", userType);
-
+        //response.put("name",existingUser.getUsername());
         // Return the map as the response
         return response;    }
     @GetMapping(value= "/")
@@ -100,4 +100,13 @@ public class UserServiceImpl implements UserService {
     public List<User> searchProductsByName(@PathVariable String name) {
         return userRepository.findByUsersname(name);
     }
+
+
+
+    @GetMapping(value = "/count")
+    @ResponseBody
+    public long countUsers() {
+        return userRepository.count();
+    }
 }
+

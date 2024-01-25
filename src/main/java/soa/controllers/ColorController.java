@@ -32,6 +32,7 @@ public class ColorController {
 
     @DeleteMapping("/delete/{id}")
     public void deleteColor(@PathVariable Long id) {
+        System.out.println("Trying to delete color with ID: " + id);
         colorService.deleteColor(id);
     }
 }
